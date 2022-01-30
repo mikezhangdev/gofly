@@ -1,0 +1,78 @@
+definitions:
+  api.DataStruct:
+    properties:
+      code:
+        type: integer
+      data: {}
+      inner_msg:
+        type: string
+      msg:
+        type: string
+      request_id:
+        type: string
+      ts:
+        type: integer
+    type: object
+  user_api.RegisterReq:
+    properties:
+      device_id:
+        type: string
+      password:
+        type: string
+      phone_num:
+        type: string
+      rand_code:
+        type: string
+    type: object
+  user_service.RegisterOut:
+    properties:
+      accessToken:
+        type: string
+      expireTime:
+        type: integer
+      refreshToken:
+        type: string
+      status:
+        description: 1为正常 2 为该账户已完成注册走 登录流程 -1 通用异常
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: 用户注册
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 交款查询参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/user_api.RegisterReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/api.DataStruct'
+            - properties:
+                data:
+                  $ref: '#/definitions/user_service.RegisterOut'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.DataStruct'
+      summary: 用户注册
+      tags:
+      - 用户模块
+swagger: "2.0"

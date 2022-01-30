@@ -1,0 +1,20 @@
+# 配置项
+system:
+  dev_std_out: "8081"
+
+mysql:
+  user: "root"
+  pass: "123456"
+  host: "192.168.56.104"
+  port: 3306
+  dbname: "myblog"
+  charset: "utf8mb4"
+  parsetime: "true"
+  loc: "Local"
+
+redis:
+  addr: "192.168.56.104:6379"
+  maxidle: 20
+  maxactive: 30
+  idletimeout: 10
+  maxconnlifetime: 60
